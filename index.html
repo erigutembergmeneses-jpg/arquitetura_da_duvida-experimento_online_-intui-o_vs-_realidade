@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafiando a Ilusão de Competência · Plataforma Interativa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎙️ Desafiando a Ilusão de Competência</h1>
+                <p class="subtitle">Plataforma interativa · 10 depoimentos reais · Análise comparativa com operadores do direito</p>
+                <div class="badge-container">
+                    <span class="badge">🔊 10 casos reais</span>
+                    <span class="badge">📊 comparação nacional</span>
+                    <span class="badge">🎯 relatório personalizado</span>
+                    <span class="badge">⚖️ base CNJ 2023</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Estatísticas Nacionais (CNJ 2023) -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">11.342</div>
+                <div class="stat-label">operadores pesquisados</div>
+                <div class="stat-source">CNJ/PNUD 2023 [citation:2]</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">64%</div>
+                <div class="stat-label">apontam morosidade</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">41%</div>
+                <div class="stat-label">dificuldade linguagem</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">78%</div>
+                <div class="stat-label">defendem mais mediação</div>
+            </div>
+        </div>
+
+        <!-- Instruções -->
+        <div class="instructions-card">
+            <h3>📋 Como funciona</h3>
+            <p>Você ouvirá <strong>10 depoimentos reais</strong> extraídos de processos judiciais brasileiros (adaptados para preservar identidades). Para cada caso, você deve tomar uma decisão como se fosse o(a) operador(a) do direito responsável.</p>
+            <p>Ao final, receberá:</p>
+            <ul>
+                <li>✅ Análise instantânea do seu desempenho</li>
+                <li>✅ Comparação com a média nacional de operadores</li>
+                <li>✅ Relatório personalizado com recomendações para reduzir a ilusão de competência</li>
+            </ul>
+            <p class="warning"><strong>Importante:</strong> Seja sincero(a). O objetivo é aprendizado, não autoengano.</p>
+        </div>
+
+        <!-- Container Principal do Simulador -->
+        <main class="simulator-container" id="simulator">
+            <!-- Tela de Introdução -->
+            <div id="intro-screen" class="screen active">
+                <div class="card intro-card">
+                    <h2>Pronto para começar?</h2>
+                    <p>Você terá acesso a 10 casos reais documentados em processos no Brasil. Cada caso inclui:</p>
+                    <ul class="case-features">
+                        <li>🎧 Áudio do depoimento (transcrição)</li>
+                        <li>📄 Contexto fático do caso</li>
+                        <li>⚖️ Questão jurídica a ser decidida</li>
+                        <li>⏱️ Tempo médio de resposta dos operadores</li>
+                    </ul>
+                    <button id="start-platform" class="btn btn-primary">▶ Iniciar Plataforma</button>
+                </div>
+            </div>
+
+            <!-- Container dinâmico para os casos -->
+            <div id="case-container" class="screen">
+                <div class="case-header">
+                    <div class="progress-info">
+                        <span id="case-current">1</span>/<span id="case-total">10</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" id="case-progress" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div class="case-card" id="case-card">
+                    <!-- Conteúdo preenchido dinamicamente pelo JS -->
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" id="prev-case" disabled>← Anterior</button>
+                    <button class="btn btn-primary" id="next-case" disabled>Próximo →</button>
+                </div>
+            </div>
+
+            <!-- Tela de Resultados -->
+            <div id="results-screen" class="screen">
+                <div class="results-card">
+                    <h2 id="result-title">📊 Seu Relatório Personalizado</h2>
+                    
+                    <!-- Score Geral -->
+                    <div class="score-overview">
+                        <div class="main-score">
+                            <span class="score-value" id="total-score">0</span>
+                            <span class="score-label">acertos</span>
+                        </div>
+                        <div class="score-comparison">
+                            <span class="vs-label">vs média nacional</span>
+                            <span class="national-avg">6.2/10</span>
+                        </div>
+                    </div>
+
+                    <!-- Gráfico de Comparação -->
+                    <div class="comparison-chart">
+                        <div class="chart-bar">
+                            <div class="bar-label">Seu desempenho</div>
+                            <div class="bar-container">
+                                <div class="bar-fill user-bar" id="user-bar" style="width: 0%"></div>
+                            </div>
+                            <span class="bar-value" id="user-percent">0%</span>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar-label">Média nacional</div>
+                            <div class="bar-container">
+                                <div class="bar-fill national-bar" style="width: 62%"></div>
+                            </div>
+                            <span class="bar-value">62%</span>
+                        </div>
+                        <div class="chart-bar">
+                            <div class="bar-label">Top 10% operadores</div>
+                            <div class="bar-container">
+                                <div class="bar-fill top-bar" style="width: 85%"></div>
+                            </div>
+                            <span class="bar-value">85%</span>
+                        </div>
+                    </div>
+
+                    <!-- Análise por Competência -->
+                    <div class="competence-analysis">
+                        <h3>🔍 Análise por Competência</h3>
+                        <div id="competence-grid" class="competence-grid"></div>
+                    </div>
+
+                    <!-- Comparativo Detalhado -->
+                    <div class="detailed-comparison">
+                        <h3>📈 Comparação com Operadores Brasileiros</h3>
+                        <p>Base: Pesquisa CNJ/PNUD com 11.342 operadores (2023) [citation:2]</p>
+                        <div id="comparison-table" class="comparison-table"></div>
+                    </div>
+
+                    <!-- Relatório de Ilusão de Competência -->
+                    <div class="illusion-report">
+                        <h3>🧠 Diagnóstico da Ilusão de Competência</h3>
+                        <div id="illusion-text" class="illusion-text"></div>
+                        
+                        <div class="calibration-chart">
+                            <h4>Calibração Confiança vs. Desempenho</h4>
+                            <div class="calibration-bars">
+                                <div class="calibration-item">
+                                    <span>Casos fáceis (autoconfiança alta)</span>
+                                    <div class="bar-group">
+                                        <div class="bar-confidence" id="conf-easy" style="width: 0%"></div>
+                                        <div class="bar-performance" id="perf-easy" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="calibration-item">
+                                    <span>Casos médios</span>
+                                    <div class="bar-group">
+                                        <div class="bar-confidence" id="conf-medium" style="width: 0%"></div>
+                                        <div class="bar-performance" id="perf-medium" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="calibration-item">
+                                    <span>Casos difíceis (baixa confiança)</span>
+                                    <div class="bar-group">
+                                        <div class="bar-confidence" id="conf-hard" style="width: 0%"></div>
+                                        <div class="bar-performance" id="perf-hard" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="calibration-note">* Barras sólidas = confiança média | Barras tracejadas = desempenho real</p>
+                        </div>
+                    </div>
+
+                    <!-- Recomendações Personalizadas -->
+                    <div class="recommendations">
+                        <h3>🎯 Recomendações para Reduzir a Ilusão de Competência</h3>
+                        <ul id="recommendations-list"></ul>
+                    </div>
+
+                    <!-- Ações -->
+                    <div class="result-actions">
+                        <button class="btn btn-primary" id="restart-platform">↻ Refazer desafio</button>
+                        <button class="btn btn-secondary" id="print-results">🖨️ Imprimir relatório</button>
+                        <button class="btn btn-outline" id="share-results">📤 Compartilhar</button>
+                    </div>
+
+                    <div class="citation-footer">
+                        <p>Baseado em casos reais do sistema judiciário brasileiro e na Pesquisa de Percepção do CNJ (2023) [citation:2]. Metodologia inspirada em estudos sobre calibração de julgamento e ilusão de competência (Dunning-Kruger).</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 · Plataforma "Desafiando a Ilusão de Competência" · Arquiteturas da Dúvida</p>
+            <p class="small">Referências: CNJ/PNUD (2023); Giacomozzi et al. (2020) [citation:8]; TST (2018) [citation:9]</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
